@@ -1,4 +1,5 @@
 import tkinter as tk
+import os
 
 class Calculatrice:
     def __init__(self, master):
@@ -48,7 +49,9 @@ class Calculatrice:
         self.equation = ""
         self.entry.delete(0, tk.END)
 
-# Lancer l'application
-root = tk.Tk()
-app = Calculatrice(root)
-root.mainloop()
+if __name__ == "__main__":
+    import os
+    if not os.environ.get("CI"):  # ou une autre variable indicative
+        root = tk.Tk()
+        app = Calculatrice(root)
+        root.mainloop()
