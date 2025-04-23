@@ -31,7 +31,7 @@ git clone https://github.com/Yasyasmine11/Groupe-6---Proj-Devops-agile-methods
 python3 main.py
 ```
 
-> 💡 Assure-toi d'avoir Python 3 installé.
+
 
 ## 🧪 Lancer les tests
 
@@ -65,7 +65,7 @@ Chaque membre a contribué en créant des branches, faisant des **pull requests*
 - [Prénoms des autres membres : redaction de fichier readme : chaghil oussama 
  les pull requestes +revues de code + initialisation du projet   : yassine aoudjit
   ecrire des tests unitaire , finaliser le projet et archiver les cartes trelo : mohamed amine dhaoui 
-  Créer une interface en ligne de commande , Ajouter les fonctions : addition, soustraction, multiplication, division et Configurer un pipeline CI avec GitHub Actions (ou GitLab CI) : elyes boudabous 
+  Créer une interface en ligne de commande , Ajouter les fonctions : addition, soustraction, multiplication, division et Configurer un pipeline CI avec GitHub Actions (ou GitLab CI) : elyes boudabous , mohamed amine  moujaded
   ]
 - 
  + rôles respectifs]
