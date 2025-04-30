@@ -2,15 +2,11 @@ trigger:
 - main
 
 pool:
-  name: Default
+  name: Default  # Utilise ton agent auto-hébergé
 
 steps:
-- task: UsePythonVersion@0
-  inputs:
-    versionSpec: '3.x'
+- script: echo "✅ L'agent fonctionne correctement !"
+  displayName: 'Test simple de l’agent'
 
-- script: pip install -r requirements.txt
-  displayName: 'Installer les dépendances Python'
-
-- script: pytest
-  displayName: 'Exécuter les tests unitaires'
+- script: python -c "print('Hello depuis Python 🐍')"
+  displayName: 'Exécuter une commande Python'
