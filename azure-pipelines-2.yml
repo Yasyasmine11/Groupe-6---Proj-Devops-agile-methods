@@ -1,0 +1,16 @@
+trigger:
+- main
+
+pool:
+  name: Default  # Ton agent auto-hébergé est dans le pool Default
+
+steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.x'
+
+- script: pip install -r requirements.txt
+  displayName: 'Installer les dépendances Python'
+
+- script: pytest
+  displayName: 'Exécuter les tests unitaires'
