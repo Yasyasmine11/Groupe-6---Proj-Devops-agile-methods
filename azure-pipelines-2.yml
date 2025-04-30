@@ -2,11 +2,11 @@ trigger:
 - main
 
 pool:
-  name: Default  # Utilise ton agent auto-hébergé
+  name: Default
 
 steps:
-- script: echo "✅ L'agent fonctionne correctement !"
+- script: echo "L'agent fonctionne correctement !"
   displayName: 'Test simple de l’agent'
 
-- script: python -c "print('Hello depuis Python 🐍')"
+- script: python -c "print('Hello depuis Python')"
   displayName: 'Exécuter une commande Python'
