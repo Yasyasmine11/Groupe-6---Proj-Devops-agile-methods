@@ -2,7 +2,7 @@ trigger:
 - main
 
 pool:
-  name: Default  # Ton agent auto-hébergé est dans le pool Default
+  name: Default
 
 steps:
 - task: UsePythonVersion@0
