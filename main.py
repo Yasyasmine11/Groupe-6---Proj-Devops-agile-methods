@@ -1,4 +1,3 @@
-# script principal
 from azure_devops import get_latest_commits, get_build_status
 from secrets import get_secret
 from notifier import send_email
