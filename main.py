@@ -1,57 +1,25 @@
-import tkinter as tk
-import os
+from azure_devops import get_latest_commits, get_build_status
+from secrets import get_secret
+from notifier import send_email
+from logger import log_message
+from dashboard import print_build_dashboard
 
-class Calculatrice:
-    def __init__(self, master):
-        self.master = master
-        master.title("Calculatrice")
+# Configurations
+ORG_URL = "https://dev.azure.com/elyesboudabous/"
+PROJECT = "project_estiam"
+REPO = "Groupe-6---Proj-Devops-agile-methods"
+VAULT_URL = "https://monkeyvault.vault.azure.net/"
+SECRET_NAME = "az-pat"
 
-        self.equation = ""
+pat = get_secret(SECRET_NAME, VAULT_URL)
 
-        self.entry = tk.Entry(master, width=20, font=('Arial', 24), borderwidth=2, relief="solid", justify='right')
-        self.entry.grid(row=0, column=0, columnspan=4, padx=10, pady=10)
+commits = get_latest_commits(ORG_URL, PROJECT, REPO, pat)
+builds = get_build_status(ORG_URL, PROJECT, pat)
 
-        buttons = [
-            ('7', 1, 0), ('8', 1, 1), ('9', 1, 2), ('/', 1, 3),
-            ('4', 2, 0), ('5', 2, 1), ('6', 2, 2), ('*', 2, 3),
-            ('1', 3, 0), ('2', 3, 1), ('3', 3, 2), ('-', 3, 3),
-            ('0', 4, 0), ('.', 4, 1), ('=', 4, 2), ('+', 4, 3),
-            ('C', 5, 0), ('(', 5, 1), (')', 5, 2)
-        ]
+# Envoie un mail si échec build
+for build in builds['value'][:1]:
+    if build['result'] == "failed":
+        send_email("Build Échoué", f"Le build {build['buildNumber']} a échoué.", "destinataire@mail.com")
+        log_message("Alerte: Build échoué envoyé")
 
-        for (text, row, col) in buttons:
-            if text == '=':
-                btn = tk.Button(master, text=text, width=5, height=2, font=('Arial', 18), command=self.evaluer)
-            elif text == 'C':
-                btn = tk.Button(master, text=text, width=5, height=2, font=('Arial', 18), command=self.clear)
-            else:
-                btn = tk.Button(master, text=text, width=5, height=2, font=('Arial', 18),
-                                command=lambda txt=text: self.ajouter(txt))
-            btn.grid(row=row, column=col, padx=5, pady=5)
-
-    def ajouter(self, char):
-        self.equation += str(char)
-        self.entry.delete(0, tk.END)
-        self.entry.insert(tk.END, self.equation)
-
-    def evaluer(self):
-        try:
-            result = str(eval(self.equation))
-            self.entry.delete(0, tk.END)
-            self.entry.insert(tk.END, result)
-            self.equation = result
-        except:
-            self.entry.delete(0, tk.END)
-            self.entry.insert(tk.END, "Erreur")
-            self.equation = ""
-
-    def clear(self):
-        self.equation = ""
-        self.entry.delete(0, tk.END)
-
-if __name__ == "__main__":
-    import os
-    if not os.environ.get("CI"):  # ou une autre variable indicative
-        root = tk.Tk()
-        app = Calculatrice(root)
-        root.mainloop()
+print_build_dashboard(builds)

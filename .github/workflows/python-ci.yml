@@ -24,5 +24,6 @@ jobs:
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-    - name: ✅ Lancer les tests
-      run: python -m unittest test_logique.py
+    - name: ✅ Vérifier que le script fonctionne
+      run: |
+        python main.py
