@@ -1,16 +1,18 @@
 trigger:
-  - main
+- main
 
 pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-  - task: UsePythonVersion@0
-    inputs:
-      versionSpec: '3.x'
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.x'
 
-  - script: pip install -r requirements.txt
-    displayName: 'Installer les dépendances'
-
-  - script: pytest
-    displayName: 'Exécuter les tests'
+- script: |
+    pip install build twine
+    python -m build
+    python -m twine upload --repository azure dist/*
+  env:
+    TWINE_USERNAME: anything
+    TWINE_PASSWORD: $(PAT_AZURE)

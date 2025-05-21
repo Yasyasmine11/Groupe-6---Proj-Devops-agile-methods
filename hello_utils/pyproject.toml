@@ -1,0 +1,20 @@
+[project]
+name = "devops-notifier"
+version = "0.1.0"
+description = "Application Python DevOps pour notifier les builds Azure DevOps"
+authors = [
+  {name = "Ton Nom", email = "ton.email@example.com"}
+]
+readme = "README.md"
+license = {text = "MIT"}
+dependencies = [
+  "azure-devops",
+  "azure-identity",
+  "azure-keyvault-secrets",
+  "opencensus-ext-azure",
+  "requests"
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
